@@ -1,23 +1,35 @@
-from flask import Flask, jsonify
-from flask_cors import CORS
+# from flask import Flask
+# from flask_cors import CORS
+# from routes import api_blueprint
 
-# Initialize Flask app
+# # Initialiseer Flask app
+# app = Flask(__name__)
+
+# # Enable CORS
+# CORS(app, origins=["https://dashboardfrontend-4ak3.onrender.com"])
+
+# # Registreer de blueprint voor API-routes
+# app.register_blueprint(api_blueprint)
+
+# # Hoofdentry point
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+
+
+from flask import Flask
+from flask_cors import CORS
+from routes import api_blueprint
+
+
 app = Flask(__name__)
 
-# Enable CORS for the app, allowing requests from the frontend URL
-CORS(app, origins=["https://dashboardfrontend-4ak3.onrender.com"])
+# Sta CORS toe voor verzoeken afkomstig van je React frontend
+CORS(app, origins=["http://localhost:3000", "https://dashboardfrontend-4ak3.onrender.com"])
 
-# Example route for testing the API
-@app.route('/api/data', methods=['GET'])
-def get_data():
-    # Return sample data as JSON
-    data = {
-        'message': 'Hello from the backend!',
-        'status': 'success',
-        'data': [1, 2, 3, 4, 5]
-    }
-    return jsonify(data)
+# Voeg hier je routes en andere logica toe
+app.register_blueprint(api_blueprint)
 
-# Main entry point
+
 if __name__ == '__main__':
     app.run(debug=True)
